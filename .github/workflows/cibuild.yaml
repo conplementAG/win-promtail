@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: windows-2019
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push container to ACR
+        run: |
+          docker build -t conplementag/win-promtail:${{ vars.PROMTAIL_VERSION }} --build-arg PROMTAIL_VERSION=${{ vars.PROMTAIL_VERSION }} --build-arg PROMTAIL_SHA256=${{ vars.PROMTAIL_SHA256 }} .
+          docker push conplementag/win-promtail:${{ vars.PROMTAIL_VERSION }}
+
