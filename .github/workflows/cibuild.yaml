@@ -23,6 +23,7 @@ jobs:
 
       - name: Build and Push container to ACR
         run: |
+          echo "Used windows promtail version: ${{ vars.PROMTAIL_VERSION }}"
           docker build -t conplementag/win-promtail:${{ vars.PROMTAIL_VERSION }} --build-arg PROMTAIL_VERSION=${{ vars.PROMTAIL_VERSION }} --build-arg PROMTAIL_SHA256=${{ vars.PROMTAIL_SHA256 }} .
           docker push conplementag/win-promtail:${{ vars.PROMTAIL_VERSION }}
 
