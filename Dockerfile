@@ -1,5 +1,5 @@
 # escape=`
-FROM mcr.microsoft.com/windows/servercore:ltsc2019 AS servercore
+FROM mcr.microsoft.com/windows/servercore:ltsc2022 AS servercore
 
 SHELL ["powershell"]
 
@@ -13,7 +13,7 @@ RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tl
     Remove-Item promtail.zip
 
 
-FROM mcr.microsoft.com/windows/nanoserver:ltsc2019
+FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
 
 COPY --from=servercore /promtail /promtail
 
