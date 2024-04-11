@@ -17,5 +17,6 @@ FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
 
 COPY --from=servercore /promtail /promtail
 
+
 WORKDIR C:\promtail
 CMD ["promtail-windows-amd64.exe"]
